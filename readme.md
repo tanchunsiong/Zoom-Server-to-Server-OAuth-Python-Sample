@@ -5,6 +5,7 @@ The main logic of this sample is in app.py
 This demo still require python and `pip3 install flask`, `pip install python-dotenv`
 
 You will also need a .env in the root directory with these values
+
 API_KEY='asdfasdfasdf'
 SECRET_KEY='asdfasdfasdf'
 ACCOUNT_ID='asdfasdfasdf'
