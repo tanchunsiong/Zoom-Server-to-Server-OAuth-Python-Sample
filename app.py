@@ -1,5 +1,7 @@
 from flask import Flask, render_template, jsonify, request
 from S2SOAuth import get_access_token
+from webhook import handle_request
+import requests
 
 app = Flask(__name__)
 
@@ -25,6 +27,24 @@ def GetAccessToken():
     else:
         print('Failed to retrieve an access token.')
 
+# Define a route to handle POST requests
+@app.route('/webhook', methods=['POST'])
+def handle_post_webhook():
+    # You can handle POST requests here
+    # The request data can be accessed using request.json or request.form
+    # Perform your webhook processing logic
+    response=handle_request(request)
+    
+    return response
+
+# Define a route to handle GET requests
+@app.route('/webhook', methods=['GET'])
+def handle_get_webhook():
+    # You can handle GET requests here
+    # Perform your GET webhook processing logic
+    
+    # For example, return a response for GET requests
+    return 'This is a GET request to webhook.py', 200
 
 if __name__ == '__main__':
     app.run(debug=True)
