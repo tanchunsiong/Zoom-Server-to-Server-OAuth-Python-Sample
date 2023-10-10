@@ -17,7 +17,7 @@ load_dotenv()
 #ACCOUNT_ID='zzzzzzzzzzzz'
 #secret_token='123412341234123'
 
-secret_token = os.getenv("secret_token")
+oauth_secret_token = os.getenv("OAUTH_SECRET_TOKEN")
 
 app = Flask(__name__)
 
@@ -43,7 +43,7 @@ def handle_request(request):
             if plain_token is not None:
                 # Hash the plainToken using HMAC-SHA256
                 encrypted_token = hmac.new(
-                    secret_token.encode('utf-8'),
+                    oauth_secret_token.encode('utf-8'),
                     plain_token.encode('utf-8'),
                     hashlib.sha256
                 ).hexdigest()
@@ -61,19 +61,24 @@ def handle_request(request):
                 return "Payload is missing 'plainToken' property.", 400
         else:
             # Invalid event type
-            return "Invalid event type.", 400
+            message = "Success."
+            
+            # Save the POST body to a text file
+            with open('webhook.txt', 'w') as file:
+                file.write(str(request.get_json()))
+
+            return message, 200
 
     elif request.method == 'GET':
         # This block handles GET requests
 
-        # Handle your GET request logic here
-
-        # For example, you can retrieve query parameters using request.args
-        param1 = request.args.get('param1')
-        if param1 is not None:
-            return f"Received GET request with param1 = {param1}"
-        else:
-            return "Received GET request without param1"
+        # Read the content of the text file
+        try:
+            with open('webhook.txt', 'r') as file:
+                file_content = file.read()
+            return file_content, 200
+        except FileNotFoundError:
+            return "File not found.", 404
 
     else:
         # Unsupported HTTP method

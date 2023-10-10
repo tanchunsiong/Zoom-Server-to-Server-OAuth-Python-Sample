@@ -1,7 +1,8 @@
 from flask import Flask, render_template, jsonify, request
-from S2SOAuth import get_access_token
+from s2soauth import get_access_token
 from webhook import handle_request
 from redirectforoauth import handle_redirect_url_data_request
+from oauthrefreshtoken import handle_oauth_refresh_token_data_request
 
 
 import requests
@@ -19,15 +20,9 @@ app = Flask(__name__)
 def index():
     return render_template('index.html')
 
-# Define a route for the web service
-@app.route('/api/data', methods=['GET'])
-def api_data():
-    # Simulate some data
-    data = {'message': 'Hello, world!', 'value': 42}
-    return jsonify(data)
 
 # Define a route for the web service
-@app.route('/GetAccessToken', methods=['GET'])
+@app.route('/s2soauthaccesstoken', methods=['GET'])
 def GetAccessToken():
     access_token = get_access_token()
     if access_token:
@@ -53,7 +48,10 @@ def handle_get_webhook():
     # Perform your GET webhook processing logic
     
     # For example, return a response for GET requests
-    return 'This is a GET request to webhook.py', 200
+    response=handle_request(request)
+    
+    return response
+
 
 
 # Define a route to handle POST requests
@@ -69,6 +67,25 @@ def handle_get_oauth():
     # The request data can be accessed using request.json or request.form
     # Perform your webhook processing logic
     response=handle_redirect_url_data_request("redirecturlforoauth",oauth_client_id,oauth_client_secret,code)
+    if response:
+        return response
+    else:
+        print('Failed to retrieve an access token.')   
+    return response
+
+# Define a route to handle POST requests
+@app.route('/oauthrefreshtoken', methods=['GET'])
+def handle_get_oauth_refresh_token():
+    oauth_client_secret = os.getenv("OAUTH_CLIENT_SECRET")
+    oauth_client_id = os.getenv("OAUTH_CLIENT_ID")
+
+    # Get the value of the 'code' query string parameter
+    refreshtoken = request.args.get('refreshtoken')
+    
+    # You can handle POST requests here
+    # The request data can be accessed using request.json or request.form
+    # Perform your webhook processing logic
+    response=handle_oauth_refresh_token_data_request(oauth_client_id,oauth_client_secret,refreshtoken)
     if response:
         return response
     else:

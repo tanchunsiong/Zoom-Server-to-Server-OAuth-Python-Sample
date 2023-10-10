@@ -16,15 +16,15 @@ load_dotenv()
 
 
 # Access the environment variables
-client_secret = os.getenv("CLIENT_SECRET")
-client_id = os.getenv("CLIENT_ID")
-account_id = os.getenv("ACCOUNT_ID")
-oauth_url = 'https://zoom.us/oauth/token?grant_type=account_credentials&account_id='+account_id  # Replace with your OAuth endpoint URL
+s2s_oauth_client_secret = os.getenv("S2S_OAUTH_CLIENT_SECRET")
+s2s_oauth_client_id = os.getenv("S2S_OAUTH_CLIENT_ID")
+s2s_oauth_account_id = os.getenv("S2S_OAUTH_ACCOUNT_ID")
+oauth_url = 'https://zoom.us/oauth/token?grant_type=account_credentials&account_id='+s2s_oauth_account_id  # Replace with your OAuth endpoint URL
 
 def get_access_token():
     try:
         # Create the Basic Authentication header
-        auth_header = f'Basic {base64.b64encode(f"{client_id}:{client_secret}".encode()).decode()}'
+        auth_header = f'Basic {base64.b64encode(f"{s2s_oauth_client_id}:{s2s_oauth_client_secret}".encode()).decode()}'
 
         # Define the headers for the OAuth request
         headers = {
