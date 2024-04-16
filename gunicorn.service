@@ -1,0 +1,13 @@
+[Unit]
+Description=python.asdc.cc Website
+After=network.target
+
+[Service]
+User=www-data
+Group=www-data
+WorkingDirectory=/var/www/python.asdc.cc
+ExecStart=/var/www/python.asdc.cc/venv/bin/gunicorn --chdir /var/www/python.asdc.cc -w 1 -b 0.0.0.0:5000 app:app
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

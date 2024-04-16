@@ -7,11 +7,16 @@ This demo still require python and `pip3 install flask`,`pip install requests` a
 
 You will also need a .env in the root directory with these values
 
-API_KEY='asdfasdfasdf'
-SECRET_KEY='asdfasdfasdf'
-ACCOUNT_ID='asdfasdfasdf'
+# Your .env file should look something like this
 
-
+S2S_OAUTH_CLIENT_ID=''
+S2S_OAUTH_CLIENT_SECRET=''
+S2S_OAUTH_ACCOUNT_ID=''
+OAUTH_SECRET_TOKEN=''
+OAUTH_CLIENT_ID=''
+OAUTH_CLIENT_SECRET=''
+MSDK_CLIENT_SECRET=''
+MSDK_CLIENT_ID=''
 
 
 The index.html file contains a simple webpage with an empty <div> element where data from the web service will be displayed using JavaScript's fetch function.

@@ -39,5 +39,3 @@ def handle_oauth_refresh_token_data_request(oauth_client_id, oauth_client_secret
         return "Error: " + str(response.status_code), response.status_code
 
 
-# Example usage:
-# handle_redirect_url_data_request('/token', 'YourClientID', 'YourClientSecret', 'sm9Vh2LjAcF6L5oFn_jRm6wYSgkouUpTQ')

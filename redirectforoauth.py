@@ -10,7 +10,7 @@ def handle_redirect_url_data_request(path, oauth_client_id, oauth_client_secret,
     print (redirect_uri)
     
     # Encode the client ID and client secret
-    credentials = f"{oauth_client_id}:{oauth_client_secret}"
+    (credentials) = f"{oauth_client_id}:{oauth_client_secret}"
     credentials_encoded = base64.b64encode(credentials.encode()).decode('utf-8')
 
     headers = {
@@ -42,5 +42,3 @@ def handle_redirect_url_data_request(path, oauth_client_id, oauth_client_secret,
         return "Error: " + str(response.status_code), response.status_code
 
 
-# Example usage:
-# handle_redirect_url_data_request('/token', 'YourClientID', 'YourClientSecret', 'sm9Vh2LjAcF6L5oFn_jRm6wYSgkouUpTQ')

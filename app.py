@@ -1,4 +1,5 @@
 from flask import Flask, render_template, jsonify, request
+from meetingsdk import handle_meetingsdk
 from s2soauth import get_access_token
 from webhook import handle_request
 from redirectforoauth import handle_redirect_url_data_request
@@ -86,6 +87,25 @@ def handle_get_oauth_refresh_token():
     # The request data can be accessed using request.json or request.form
     # Perform your webhook processing logic
     response=handle_oauth_refresh_token_data_request(oauth_client_id,oauth_client_secret,refreshtoken)
+    if response:
+        return response
+    else:
+        print('Failed to retrieve an access token.')   
+    return response
+
+# Define a route to handle POST requests
+@app.route('/meetingsdk', methods=['GET'])
+def handle_get_meetingsdk():
+    msdk_client_secret = os.getenv("MSDK_CLIENT_SECRET")
+    msdk_client_id = os.getenv("MSDK_CLIENT_ID")
+
+    # Get the value of the 'code' query string parameter
+    refreshtoken = request.args.get('refreshtoken')
+    
+    # You can handle POST requests here
+    # The request data can be accessed using request.json or request.form
+    # Perform your webhook processing logic
+    response=handle_meetingsdk(msdk_client_id,msdk_client_secret)
     if response:
         return response
     else:

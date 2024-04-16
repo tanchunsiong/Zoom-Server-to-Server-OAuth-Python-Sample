@@ -10,12 +10,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 
-# Your .env file should look something like this
 
-#CLIENT_ID='xxxxxxxxxx'
-#CLIENT_SECRET='yyyyyyyyyyyyy'
-#ACCOUNT_ID='zzzzzzzzzzzz'
-#secret_token='123412341234123'
 
 oauth_secret_token = os.getenv("OAUTH_SECRET_TOKEN")
 

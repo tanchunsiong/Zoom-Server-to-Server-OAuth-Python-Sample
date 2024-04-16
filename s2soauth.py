@@ -7,14 +7,6 @@ from dotenv import load_dotenv
 # Load environment variables from .env file, this will try to load these values from your .env file
 load_dotenv()
 
-# Your .env file should look something like this
-
-#CLIENT_ID='xxxxxxxxxx'
-#CLIENT_SECRET='yyyyyyyyyyyyy'
-#ACCOUNT_ID='zzzzzzzzzzzz'
-#secret_token='123412341234123'
-
-
 # Access the environment variables
 s2s_oauth_client_secret = os.getenv("S2S_OAUTH_CLIENT_SECRET")
 s2s_oauth_client_id = os.getenv("S2S_OAUTH_CLIENT_ID")
